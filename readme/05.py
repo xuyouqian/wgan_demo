@@ -2,6 +2,7 @@ from torch import nn
 
 import torch
 
+
 def weights_init(m):
     classname = m.__class__.__name__
     if classname.find('Conv') != -1:
@@ -54,16 +55,18 @@ class Generator(nn.Module):
         return y
 
 
-g = Generator(64)
+g = Generator(100)
 
+input_tensor = torch.randn([64, 100])
+out_put = g(input_tensor)
+print(out_put.shape)
 net_state_dict = g.state_dict()
 
-
-for name,value in g.named_parameters():
-    print(name)
-    print(torch.mean(value).detach())
-    print(torch.std(value).detach())
-    print('---------------------------------')
+# for name,value in g.named_parameters():
+#     print(name)
+#     print(torch.mean(value).detach())
+#     print(torch.std(value).detach())
+#     print('---------------------------------')
 '''
 
 l1.0.weight
@@ -119,4 +122,3 @@ tensor(-8.4211e-05)
 tensor(0.0202)
 
 '''
-
